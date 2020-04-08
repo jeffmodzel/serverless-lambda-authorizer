@@ -1,0 +1,27 @@
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+
+service: example-authorizer
+
+custom:
+  config: ${file(./config.yml)}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${self:custom.config.stage}
+  region: ${self:custom.config.region}
+  memorySize: 128
+  stackTags:
+    DEPLOYMENT: serverless-framework
+
+functions:
+  getDogs:
+    description: Gets dogs data
+    handler: src/getDogs.handler
+    events:
+      - http:
+          path: /dogs
+          method: get
