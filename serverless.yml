@@ -25,3 +25,16 @@ functions:
       - http:
           path: /dogs
           method: get
+          authorizer: authorizerFunc
+  authorizerFunc:
+    handler: src/authorizer.handler
+  getCats:
+    description: Gets cats data
+    handler: src/getCats.handler
+    events:
+      - http:
+          path: /cats
+          method: get
+          authorizer: authorizerCatsFunc
+  authorizerCatsFunc:
+    handler: src/authorizerCats.handler
